@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "ec2",
+    "password": "qwerty",
+    "database": "elearning",
+    "host": "i-0932988d760ee9309.ap-southeast-1.compute.internal",
+    "dialect": "mysql"
+  }
+}
