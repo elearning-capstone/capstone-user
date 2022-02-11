@@ -19,14 +19,14 @@ router.post("/", async (req, res) => {
         return res.status(400).json({ message: "invalid username, password" })
     }
 
-    let user = await user.create({
+    let new_user = await user.create({
         username,
         password
     });
 
     return res.json({
         data: {
-            user
+            user: new_user
         }
     });
 });
