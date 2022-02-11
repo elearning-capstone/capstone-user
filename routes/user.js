@@ -3,8 +3,6 @@ const router = express.Router();
 const { user } = require("../models");
 
 router.post("/", async (req, res) => {
-    console.log(req);
-    return res.json({ message: "OK" });
     const { username, password } = req.body;
 
     if (typeof username != "string" || typeof password != "string") {
