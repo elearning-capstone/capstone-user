@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true,
             },
+        },
+        role: {
+            type: DataTypes.ENUM("user", "lecturer"),
+            defaultValue: "user",
         }
     });
 

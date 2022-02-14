@@ -63,4 +63,36 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.patch("/role", async (req, res) => {
+    try {
+        const { user_id, role } = req.body;
+
+        if (typeof user_id != "number" || role != "user" && role != "lecturer") {
+            return res.status(400).json({ message: "invalid user_id, role" })
+        }
+
+        let count = await user.count({
+            where: {
+                id: user_id,
+            }
+        });
+
+        if (count == 0) {
+            return res.status(400).json({ message: "user not found" })
+        }
+
+        await user.update({
+            role
+        }, {
+            where: {
+                id: user_id,
+            }
+        });
+
+        return res.json({ message: "success" });
+    } catch(err) {
+        return res.status(404).json({ message: "not found" });
+    }
+});
+
 module.exports = router;
