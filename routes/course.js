@@ -10,7 +10,7 @@ router.get("/all", async (req, res) => {
         const response = await axios.get(course_ip + "/all");
         return res.json(response.data);
     } catch (err) {
-        return res.status(err.response.status).json(err.response.data);
+        return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
     }
 });
 
@@ -19,7 +19,7 @@ router.post("/register", userCheckMiddleware, async (req, res) => {
         const response = await axios.post(course_ip + "/register", req.body, { headers: { user: req.headers['user'] } });
         return res.json(response.data);
     } catch (err) {
-        return res.status(err.response.status).json(err.response.data);
+        return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
     }
 });
 
