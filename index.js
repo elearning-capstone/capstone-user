@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
   res.json({ message: "health check ok" });
 });
 
-app.use("/", require("./routes/user"));
+app.use("/user", require("./routes/user"));
 app.use("/course", require("./routes/course"));
 
 // set port, listen for requests

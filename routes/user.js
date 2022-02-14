@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 const { user } = require("../models");
 
+router.get("/", async (req, res) => {
+    try {
+        return res.json({
+            user: user.findAll(),
+        });
+    } catch(err) {
+        return res.status(404).json({ message: "not found" });
+    }
+});
+
 router.post("/register", async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -63,7 +73,7 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.patch("/role", async (req, res) => {
+router.put("/role", async (req, res) => {
     try {
         const { user_id, role } = req.body;
 
