@@ -16,7 +16,7 @@ router.get("/all", async (req, res) => {
 
 router.post("/register", userCheckMiddleware, async (req, res) => {
     try {
-        const response = await axios.post(course_ip + "/register", req.body, { headers: req.headers });
+        const response = await axios.post(course_ip + "/register", req.body, { headers: { user: req.headers['user'] } });
         return res.json(response.data);
     } catch (err) {
         return res.status(err.response.status).json(err.response.data);
