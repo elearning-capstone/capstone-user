@@ -4,11 +4,11 @@ exports.userCheckMiddleware = async (req, res, next) => {
     try {
         let count = await user.count({
             where: {
-                id: req.headers['user'],
+                id: req.headers['user'].user_id,
             }
         });
 
-        if (count != 0) {
+        if (count == 0) {
             return res.status(404).json({ message: "user not found" });
         }
     } catch (err) {
