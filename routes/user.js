@@ -33,4 +33,34 @@ router.post("/register", async (req, res) => {
     }
 });
 
+router.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if (typeof username != "string" || typeof password != "string") {
+            return res.status(400).json({ message: "invalid username, password" })
+        }
+
+        let user_info = await user.findOne({
+            where: {
+                username
+            }
+        });
+
+        if (!user_info) {
+            return res.status(400).json({ message: "invalid username, password" })
+        }
+
+        if (user_info.password != password) {
+            return res.status(400).json({ message: "invalid username, password" })
+        }
+
+        return res.json({
+            user_id: user_info.id
+        });
+    } catch(err) {
+        return res.status(404).json({ message: "not found" });
+    }
+});
+
 module.exports = router;
