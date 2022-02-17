@@ -2,9 +2,13 @@ const { user } = require("./models");
 
 exports.userCheckMiddleware = async (req, res, next) => {
     try {
+        if (!req.query.user_id) {
+            return res.status(400).json({ message: "missing user id" });
+        }
+
         let count = await user.count({
             where: {
-                id: req.headers['user'].user_id,
+                id: req.query.user_id,
             }
         });
 
