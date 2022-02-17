@@ -66,7 +66,8 @@ router.post("/login", async (req, res) => {
         }
 
         return res.json({
-            user_id: user_info.id
+            user_id: user_info.id,
+            role: user_info.role,
         });
     } catch(err) {
         return res.status(404).json({ message: "not found" });

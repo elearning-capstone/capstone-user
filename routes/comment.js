@@ -7,10 +7,8 @@ const course_ip = "http://ip-172-31-36-250.ap-southeast-1.compute.internal:3000"
 
 router.get("/", async (req, res) => {
     try {
-        console.log(req.params);
-        console.log(req.query);
-        //const response = await axios.get(course_ip + "/comment", { headers: { user: req.headers['user'] }, params: req.query });
-        return res.json({ message: "test" });
+        const response = await axios.get(course_ip + "/comment", { headers: { user: req.headers['user'] }, params: req.query });
+        return res.json(response.data);
     } catch (err) {
         return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
     }
