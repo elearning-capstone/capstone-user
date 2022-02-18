@@ -5,7 +5,7 @@ const { user } = require("../models");
 router.get("/", async (req, res) => {
     try {
         return res.json({
-            user: user.findAll(),
+            user: await user.findAll(),
         });
     } catch(err) {
         return res.status(404).json({ message: "not found" });
