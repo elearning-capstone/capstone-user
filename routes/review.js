@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/create", userCheckMiddleware, async (req, res) => {
+router.post("/", userCheckMiddleware, async (req, res) => {
     try {
         const response = await axios.post(course_ip + "/review/create", req.body, { params: req.query });
         return res.json(response.data);
