@@ -14,6 +14,16 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/study", async (req, res) => {
+    try {
+        const response = await axios.get(course_ip + "/course/study");
+        return res.json(response.data);
+    } catch (err) {
+        return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
+    }
+});
+
+
 router.post("/register", userCheckMiddleware, async (req, res) => {
     try {
         const response = await axios.post(course_ip + "/course/register", req.body, { params: req.query });
