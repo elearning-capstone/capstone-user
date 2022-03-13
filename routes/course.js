@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/study", async (req, res) => {
+router.get("/study", userCheckMiddleware, async (req, res) => {
     try {
         const response = await axios.get(course_ip + "/course/study");
         return res.json(response.data);
