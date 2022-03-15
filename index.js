@@ -21,6 +21,7 @@ app.use("/user", require("./routes/user"));
 app.use("/course", require("./routes/course"));
 app.use("/comment", require("./routes/comment"));
 app.use("/review", require("./routes/review"));
+app.use("/survey", require("./routes/survey"));
 
 // set port, listen for requests
 const PORT = 3000;
