@@ -14,25 +14,37 @@ router.get("/", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { username, password, fullname, email } = req.body;
 
-        if (typeof username != "string" || typeof password != "string") {
-            return res.status(400).json({ message: "invalid username, password" })
+        if (typeof username != "string" || typeof password != "string" || typeof fullname != "string" || typeof email != "string") {
+            return res.status(400).json({ message: "invalid username, password, fullname, or email" })
         }
 
-        let count = await user.count({
+        let countUser = await user.count({
             where: {
                 username
             }
         });
 
-        if (count != 0) {
-            return res.status(400).json({ message: "invalid username, password" })
+        let countEmail = await user.count({
+            where: {
+                email
+            }
+        });
+
+        if (countUser != 0 && countEmail != 0) {
+            return res.status(400).json({ message: "invalid username and email" })
+        } else if (countUser != 0){
+            return res.status(400).json({ message: "invalid username" })
+        } else if (countEmail != 0){
+            return res.status(400).json({ message: "invalid email" })
         }
 
         let new_user = await user.create({
             username,
-            password
+            password,
+            fullname,
+            email
         });
 
         return res.json({
