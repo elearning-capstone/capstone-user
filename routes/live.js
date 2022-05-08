@@ -7,7 +7,7 @@ const course_ip = "http://ip-172-31-36-250.ap-southeast-1.compute.internal:3000"
 
 router.post("/survey", userCheckMiddleware, async (req, res) => {
     try {
-        const response = await axios.post(course_ip + "/survey/live_survey", req.body, { params: req.query });
+        const response = await axios.post(course_ip + "/live/survey", req.body, { params: req.query });
         return res.json(response.data);
     } catch (err) {
         return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
