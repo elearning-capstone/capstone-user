@@ -118,4 +118,28 @@ router.put("/role", async (req, res) => {
     }
 });
 
+router.get("/information", async (req, res) => {
+    try {
+        const { user_id } = req.query;
+
+        const user_info = await user.findOne({
+            where: {
+                id: user_id
+            }
+        });
+
+        if (!user_info) {
+            return res.status(400).json({ message: "user not exist" });
+        }
+
+        return res.json({
+            user_id: user_info.id,
+            fullname: user_info.fullname,
+            email: user_info.email
+        });
+    } catch(err) {
+        return res.status(404).json({ message: "not found" });
+    }
+});
+
 module.exports = router;
