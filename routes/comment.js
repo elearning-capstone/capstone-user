@@ -26,30 +26,30 @@ router.get("/", userCheckMiddleware, async (req, res) => {
         }
 
         let users = await user.findAll({
-            attributes: ["id", "username"],
+            attributes: ["id", "fullname"],
             where: {
                 id: Array.from(user_id),
             },
             raw: true,
         });
 
-        let username = {};
+        let fullname = {};
 
         for (const name of users) {
-            username[name.id] = name.username;
+            fullname[name.id] = name.fullname;
         }
 
         for (let i = 0; i < response.data.comment.length; i++) {
-            response.data.comment[i].username = username[response.data.comment[i].user_id];
+            response.data.comment[i].fullname = fullname[response.data.comment[i].user_id];
             let id = response.data.comment[i].tag_user;
             if (id) {
-                response.data.comment[i].tag_username = username[id];
+                response.data.comment[i].tag_fullname = fullname[id];
             }
             for (let j = 0; j < response.data.comment[i].reply.length; j++) {
-                response.data.comment[i].reply[j].username = username[response.data.comment[i].reply[j].user_id];
+                response.data.comment[i].reply[j].fullname = fullname[response.data.comment[i].reply[j].user_id];
                 let id = response.data.comment[i].reply[j].tag_user;
                 if (id) {
-                    response.data.comment[i].reply[j].tag_username = username[id];
+                    response.data.comment[i].reply[j].tag_fullname = fullname[id];
                 }
             }
         }
