@@ -26,7 +26,7 @@ router.post("/", userCheckMiddleware, async (req, res) => {
 
 router.get("/result", userCheckMiddleware, async (req, res) => {
     try {
-        const response = await axios.post(course_ip + "/survey/result", { params: req.query });
+        const response = await axios.get(course_ip + "/survey/result", { params: req.query });
         return res.json(response.data);
     } catch (err) {
         return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
