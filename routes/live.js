@@ -59,4 +59,13 @@ router.put("/info", userCheckMiddleware, async (req, res) => {
     }
 });
 
+router.delete("/", userCheckMiddleware, async (req, res) => {
+    try {
+        const response = await axios.delete(course_ip + "/live", { params: req.query });
+        return res.json(response.data);
+    } catch (err) {
+        return res.status(err.response.status || 404).json(err.response.data || { message: "not found" });
+    }
+});
+
 module.exports = router;
