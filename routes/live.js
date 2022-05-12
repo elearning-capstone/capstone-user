@@ -1,6 +1,7 @@
 const express = require("express");
 const axios = require("axios");
-const { userCheckMiddleware } = require("../middleware")
+const { userCheckMiddleware } = require("../middleware");
+const {user} = require("../models");
 const router = express.Router();
 
 const course_ip = "http://ip-172-31-36-250.ap-southeast-1.compute.internal:3000";
@@ -34,21 +35,21 @@ router.get("/sync", userCheckMiddleware, async (req, res) => {
         }
 
         let users = await user.findAll({
-            attributes: ["id", "username"],
+            attributes: ["id", "fullname"],
             where: {
                 id: Array.from(user_id),
             },
             raw: true,
         });
 
-        let username = {};
+        let fullname = {};
 
         for (const name of users) {
-            username[name.id] = name.username;
+            fullname[name.id] = name.fullname;
         }
 
         for (let i = 0; i < response.data.chat.length; i++) {
-            response.data.chat[i].username = username[response.data.chat[i].user_id];
+            response.data.chat[i].fullname = fullname[response.data.chat[i].user_id];
         }
 
         return res.json(response.data);
